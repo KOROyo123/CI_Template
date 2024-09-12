@@ -10,3 +10,5 @@ RUN mkdir /app
 
 # 设置工作目录
 WORKDIR /app
+
+CMD ["/bin/bash"]
