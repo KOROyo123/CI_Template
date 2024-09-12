@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #切换到工程根目录
-cd ../
+cd ..
 
 #构建目录
 mkdir build
