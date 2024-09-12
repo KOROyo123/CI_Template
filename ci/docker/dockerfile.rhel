@@ -3,11 +3,11 @@ ARG BASE_IMAGE=centos
 FROM ${BASE_IMAGE}
 
 # 安装必要的软件和工具
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    wget
+RUN dnf update && dnf install gcc g++ make cmake -y 
+
 
 # 创建目录以存放构建产物
 RUN mkdir /app
+
+# 设置工作目录
 WORKDIR /app
