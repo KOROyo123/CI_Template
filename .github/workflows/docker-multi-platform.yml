@@ -15,8 +15,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu
-            version: 20.04
+          - version: ubuntu-20.04-amd64
             platform: linux/amd64
             dockerfile: ci/docker/dockerfile.debian
             docker_img: ubuntu:20.04
@@ -51,13 +50,13 @@ jobs:
         run: |
           docker buildx build \
             --platform ${{ matrix.platform }} \
-            --tag build-image-${{ matrix.os }}-${{ matrix.version }}-${{ matrix.platform }} \
+            --tag build-image-${{ matrix.version }}\
             -f ${{ matrix.dockerfile }} \
             .
 
       - name: Create and start container
         run: |
-          container_id=$(build-image-${{ matrix.os }}-${{ matrix.version }}-${{ matrix.platform }})
+          container_id = build-image-${{ matrix.version }}
           docker cp . $container_id:/app  # 将源代码拷贝到容器中
           docker start $container_id
 
