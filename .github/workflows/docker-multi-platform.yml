@@ -63,8 +63,8 @@ jobs:
 
       - name: Run build script inside container
         run: |
-          docker exec $container_id /bin/bash -c chmod +x /app/ci/build_in_docker.sh
-          docker exec $container_id /bin/bash -c /app/ci/build_in_docker.sh
+          docker exec $container_id chmod +x /app/ci/build_in_docker.sh
+          docker exec $container_id /app/ci/build_in_docker.sh
         
 
       - name: Copy artifacts from container
