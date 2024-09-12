@@ -51,8 +51,9 @@ jobs:
           docker buildx build \
             --platform ${{ matrix.platform }} \
             --tag build-image-${{ matrix.version }}\
+            --build-arg BASE_IMAGE=${{ matrix.docker_img }} \
             -f ${{ matrix.dockerfile }} \
-            .
+            --load .
 
       - name: Create and start container
         run: |
