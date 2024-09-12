@@ -57,7 +57,7 @@ jobs:
 
       - name: Create and start container
         run: |
-          docker run --name  -d build-image-${{ matrix.version }}
+          docker run --name build-container-${{ matrix.version }} -d build-image-${{ matrix.version }}
 
       - name: Run build script inside container
         run: |
