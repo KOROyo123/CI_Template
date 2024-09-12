@@ -8,7 +8,7 @@ int main()
     temp tmp;
     lib_temp lib_tmp;
 
-    std::cout << "done " << std::endl;
+    std::cout << "done!" << std::endl;
 
     return 0;
 }

@@ -16,20 +16,6 @@ IF(CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
 add_definitions(-DWIN32)
 ENDIF()
 
-# #全局设置选项
-# set(BUILD_EXAMPLES OFF)
-# set(BUILD_TESTING OFF)
-
-# if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-#     #是主项目
-#     set(JSON_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/rely/json/include")
-#     set(SPDLOG_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/rely/spdlog/include")
-# else()
-#     #是子项目
-# endif()
-
-
-
 
 # 默认版本号
 set(VERSION_MAJOR 1)
@@ -70,11 +56,43 @@ else()
 endif()
 
 
+# 使用git describe命令获取更新次数
+execute_process(
+    COMMAND git describe --tags --abbrev=0
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    OUTPUT_VARIABLE LATEST_TAG
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+if(NOT LATEST_TAG)
+    message(WARNING "Failed to get latest tag.")
+else()
+    # 使用git describe命令获取距离最近标签的更新次数
+    execute_process(
+        COMMAND git rev-list ${LATEST_TAG}..HEAD --count
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE UPDATE_COUNT
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    set(VERSION_EXTRA ${UPDATE_COUNT})
+endif()
 
 
+# 设置项目的版本号
+set(PROJECT_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_EXTRA}")
+
+message(STATUS "")
+message(STATUS "------- ${PROJECT_NAME} -------")# 使用git describe命令获取更新次数
+
+message(STATUS "DEV VERSION: ${PROJECT_VERSION}")
+message(STATUS "GIT VERSION: ${PROJECT_GIT_VERSION}")
+message(STATUS "TAG VERSION: ${PROJECT_TAG_VERSION}")
+message(STATUS "BINARY_NAME: ${PROJECT_NAME}-${PROJECT_VERSION}")
 
 
+#基于version.h.in 生成 version.h
+configure_file(${CMAKE_SOURCE_DIR}/.cmake/version.h.in version.h @ONLY)
 
-# add_subdirectory(rely/)
+
 add_subdirectory(lib/)
 add_subdirectory(app/)
