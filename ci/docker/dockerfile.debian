@@ -5,10 +5,4 @@ FROM ${BASE_IMAGE}
 # 安装必要的软件和工具
 RUN apt-get update && apt-get install gcc g++ make cmake -y 
 
-# 创建目录以存放构建产物
-RUN mkdir /app
-
-# 设置工作目录
-WORKDIR /app
-
 CMD ["/bin/bash"]

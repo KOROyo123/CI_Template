@@ -61,6 +61,7 @@ jobs:
 
       - name: Run build script inside container
         run: |
+          docker exec build-container-${{ matrix.version }} mkdir app
           docker cp . build-container-${{ matrix.version }}:/app  # 将源代码拷贝到容器中
           docker exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
           docker exec build-container-${{ matrix.version }} /app/ci/build_in_docker.sh
