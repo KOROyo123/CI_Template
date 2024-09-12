@@ -1,4 +1,4 @@
-name: Build and Extract Artifacts
+name: Build on Linux platforms
 
 on:
   push:
