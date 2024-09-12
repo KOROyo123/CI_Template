@@ -50,7 +50,7 @@ jobs:
 
     - name: Run build script
       run: |
-        powershell .\build_in_windows.ps1
+        .\ci\build_in_windows.ps1
 
     - name: Get tag version
       id: tag_version
