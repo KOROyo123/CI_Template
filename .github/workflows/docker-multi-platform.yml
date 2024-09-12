@@ -51,7 +51,7 @@ jobs:
         run: |
           docker buildx build \
             --platform ${{ matrix.platform }} \
-            --tag build-image:${{ matrix.docker_img }}-${{ matrix.platform }} \
+            --tag build-image-${{ matrix.os }}-${{ matrix.version }}-${{ matrix.platform }} \
             -f ${{ matrix.dockerfile }} \
             .
 
