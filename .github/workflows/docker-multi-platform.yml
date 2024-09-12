@@ -64,8 +64,8 @@ jobs:
         run: |
           docker exec build-container-${{ matrix.version }} mkdir workspace
           docker cp . build-container-${{ matrix.version }}:/workspace
-          docker exec build-container-${{ matrix.version }} chmod +x /workspace/ci/build_in_docker.sh
-          docker exec build-container-${{ matrix.version }} cd workspace/ && /ci/build_in_docker.sh
+          docker exec -w /workspace build-container-${{ matrix.version }} chmod +x ci/build_in_docker.sh
+          docker exec -w /workspace build-container-${{ matrix.version }} ci/build_in_docker.sh
         
 
       # - name: Copy artifacts from container
