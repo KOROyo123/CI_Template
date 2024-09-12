@@ -1,0 +1,13 @@
+# 使用指定的基础镜像
+ARG BASE_IMAGE=centos
+FROM ${BASE_IMAGE}
+
+# 安装必要的软件和工具
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    wget
+
+# 创建目录以存放构建产物
+RUN mkdir /app
+WORKDIR /app

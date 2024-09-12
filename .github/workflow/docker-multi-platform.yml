@@ -1,0 +1,73 @@
+name: Build and Extract Artifacts
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        docker_img: [ubuntu:22.04, openeuler/openeuler:22.03-lts-sp1]
+        platform: [linux/amd64, linux/arm64]
+        include:
+          - docker_img: ubuntu:20.04
+            platform: linux/amd64
+            dockerfile: ci/docker/dockerfile.debian
+          - docker_img: ubuntu:20.04
+            platform: linux/arm64
+            dockerfile: ci/docker/dockerfile.debian
+          - docker_img: openeuler/openeuler:22.03-lts-sp1
+            platform: linux/amd64
+            dockerfile: ci/docker/dockerfile.rhel
+          - docker_img: openeuler/openeuler:22.03-lts-sp1
+            platform: linux/arm64
+            dockerfile: ci/docker/dockerfile.rhel
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Set up QEMU for multi-platform support
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      - name: Build Docker image
+        run: |
+          docker buildx build \
+            --platform ${{ matrix.platform }} \
+            --tag build-image:${{ matrix.docker_img }}-${{ matrix.platform }} \
+            -f ${{ matrix.dockerfile }} \
+            .
+
+      - name: Create and start container
+        run: |
+          container_id=$(docker create build-image:${{ matrix.docker_img }}-${{ matrix.platform }})
+          docker cp . $container_id:/app  # 将源代码拷贝到容器中
+          docker start $container_id
+
+      - name: Run build script inside container
+        run: |
+          docker exec $container_id chmod +x /app/ci/build_in_docker.sh
+          docker exec $container_id /app/ci/build_in_docker.sh
+
+      - name: Copy artifacts from container
+        run: |
+          docker cp $container_id:/app/bin ./output  
+          docker rm $container_id  # 删除容器
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts-${{ matrix.platform }}
+          path: ./output
