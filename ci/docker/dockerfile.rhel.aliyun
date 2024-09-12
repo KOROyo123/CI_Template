@@ -14,6 +14,6 @@ RUN cd /etc/yum.repos.d/  && \
     yum makecache
 
 # 安装必要的软件和工具
-RUN yum update -y && yum install gcc g++ make cmake -y 
+RUN yum update -y && yum install gcc gcc-c++ make cmake -y 
 
 CMD ["tail", "-f", "/dev/null"]
