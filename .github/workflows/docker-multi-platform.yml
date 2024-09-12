@@ -68,15 +68,15 @@ jobs:
           docker exec -w /workspace build-container-${{ matrix.version }} ci/build_in_docker.sh
         
 
-      # - name: Copy artifacts from container
-      #   run: |
-      #     docker cp build-container-${{ matrix.version }}:/app/bin ./output  
-      #     docker rm build-container-${{ matrix.version }}   # 删除容器
+      - name: Copy artifacts from container
+        run: |
+          docker cp build-container-${{ matrix.version }}:/workspace/bin ./output  
+          docker rm build-container-${{ matrix.version }}   # 删除容器
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: build-artifacts-${{ matrix.platform }}
-      #     path: ./output
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts-${{ matrix.platform }}
+          path: ./output
 
 
