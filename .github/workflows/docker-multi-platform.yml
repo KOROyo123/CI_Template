@@ -57,13 +57,14 @@ jobs:
 
       - name: Create container and run script
         run: |
-          docker run --name build-container-${{ matrix.version }} -d build-image-${{ matrix.version }}
-
+          CONTAINER_ID=$(docker run --name build-container-${{ matrix.version }} -d build-image-${{ matrix.version }})
+          echo "CONTAINER_ID=$CONTAINER_ID" >> $GITHUB_ENV
+          
       - name: Run build script inside container
         run: |
-          docker cp . build-container-${{ matrix.version }}:/app  # 将源代码拷贝到容器中
-          docker run build-container-${{ matrix.version }} exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
-          docker exec build-container-${{ matrix.version }} /app/ci/build_in_docker.sh
+          docker cp . $CONTAINER_ID:/app  # 将源代码拷贝到容器中
+          docker run $CONTAINER_ID exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
+          docker exec $CONTAINER_ID /app/ci/build_in_docker.sh
         
 
       - name: Copy artifacts from container
