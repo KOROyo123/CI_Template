@@ -62,7 +62,8 @@ jobs:
           
       - name: Run build script inside container
         run: |
-          docker cp . build-container-${{ matrix.version }}:/
+          docker exec build-container-${{ matrix.version }} mkdir workspace
+          docker cp . build-container-${{ matrix.version }}:/workspace
 
           # docker run $CONTAINER_ID exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
           # docker exec $CONTAINER_ID /app/ci/build_in_docker.sh
