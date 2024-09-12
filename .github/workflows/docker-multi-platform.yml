@@ -57,7 +57,7 @@ jobs:
 
       - name: Create and start container
         run: |
-          container_id=$(docker create my-build-image:${{ matrix.platform }})
+          container_id=$(docker create build-image-${{ matrix.version }})
           docker cp . $container_id:/app  # 将源代码拷贝到容器中
           docker start $container_id
 
