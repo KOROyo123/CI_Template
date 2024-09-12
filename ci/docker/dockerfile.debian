@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     make \
     cmake \
 
-
 # 创建目录以存放构建产物
 RUN mkdir /app
 WORKDIR /app
