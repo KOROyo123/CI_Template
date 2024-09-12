@@ -75,9 +75,9 @@ jobs:
           docker rm build-container-${{ matrix.version }}   # 删除容器
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4.3.3
         with:
-          name: build-artifacts-${{ matrix.platform }}
+          name: build-artifacts-${{ matrix.version }}
           path: ./output
 
 
