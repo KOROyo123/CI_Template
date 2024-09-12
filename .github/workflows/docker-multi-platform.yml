@@ -57,14 +57,13 @@ jobs:
 
       - name: Create and start container
         run: |
-          container_id=$(docker create build-image-${{ matrix.version }})
-          docker cp . $container_id:/app  # 将源代码拷贝到容器中
-          docker start $container_id
+          docker run --name  -d build-image-${{ matrix.version }}
 
       - name: Run build script inside container
         run: |
-          docker exec $container_id chmod +x /app/ci/build_in_docker.sh
-          docker exec $container_id /app/ci/build_in_docker.sh
+          docker cp . build-container-${{ matrix.version }}:/app  # 将源代码拷贝到容器中
+          docker exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
+          docker exec build-container-${{ matrix.version }} /app/ci/build_in_docker.sh
         
 
       - name: Copy artifacts from container
