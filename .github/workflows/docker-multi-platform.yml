@@ -19,21 +19,18 @@ jobs:
             platform: linux/amd64
             dockerfile: ci/docker/dockerfile.debian
             docker_img: ubuntu:20.04
-          # - os: ubuntu
-          #   version: 22.04
-          #   platform: linux/arm64
-          #   dockerfile: ci/docker/dockerfile.debian
-          #   docker_img: ubuntu:22.04
-          # - os: openeuler
-          #   version: 22.03
-          #   platform: linux/amd64
-          #   dockerfile: ci/docker/dockerfile.rhel
-          #   docker_img: openeuler/openeuler:22.03-lts-sp1
-          # - os: openeuler
-          #   version: 22.03
-          #   platform: linux/arm64
-          #   dockerfile: ci/docker/dockerfile.rhel
-          #   docker_img: openeuler/openeuler:22.03-lts-sp1
+          - version: ubuntu-22.04-arm64
+            platform: linux/arm64
+            dockerfile: ci/docker/dockerfile.debian
+            docker_img: ubuntu:22.04
+          - version: openeuler-22.03-amd64
+            platform: linux/amd64
+            dockerfile: ci/docker/dockerfile.rhel
+            docker_img: openeuler/openeuler:22.03-lts-sp1
+          - version: openeuler-22.03-arm64
+            platform: linux/arm64
+            dockerfile: ci/docker/dockerfile.rhel
+            docker_img: openeuler/openeuler:22.03-lts-sp1
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
