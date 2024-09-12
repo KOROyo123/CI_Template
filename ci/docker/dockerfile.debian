@@ -5,4 +5,11 @@ FROM ${BASE_IMAGE}
 # 安装必要的软件和工具
 RUN apt-get update && apt-get install gcc g++ make cmake -y 
 
-CMD ["/bin/bash"]
+WORKDIR /workspace
+
+COPY ../../ /workspace/
+
+# 赋予编译脚本可执行权限
+RUN chmod +x /workspace/ci/build_in_docker.sh
+
+ENTRYPOINT ["/workspace/ci/build_in_docker.sh"]
