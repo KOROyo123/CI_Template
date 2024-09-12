@@ -33,7 +33,7 @@ jobs:
           #   docker_img: openeuler/openeuler:22.03-lts-sp1
           - version: centos-7.6.1810-amd64
             platform: linux/amd64
-            dockerfile: ci/docker/dockerfile.rhel
+            dockerfile: ci/docker/dockerfile.rhel.aliyun
             docker_img: centos:7.6.1810
     steps:
       - name: Checkout repository

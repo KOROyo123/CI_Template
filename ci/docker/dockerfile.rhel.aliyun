@@ -1,0 +1,19 @@
+# 使用指定的基础镜像
+ARG BASE_IMAGE=centos
+
+FROM ${BASE_IMAGE}
+
+# 更换源为阿里云
+RUN cd /etc/yum.repos.d/  && \
+    cat CentOS-Base.repo  && \
+    cp -a CentOS-Base.repo CentOS-Base.repo.bak  && \
+    sed -i 's/mirrorlis/#mirrorlis/g' CentOS-Base.repo  && \
+    sed -i 's/#baseurl/baseurl/g' CentOS-Base.repo  && \
+    sed -i 's#http://mirror.centos.org/centos/#https://mirrors.aliyun.com/centos/#g' CentOS-Base.repo  && \
+    yum clean all  && \
+    yum makecache
+
+# 安装必要的软件和工具
+RUN yum update -y && yum install gcc g++ make cmake -y 
+
+CMD ["tail", "-f", "/dev/null"]
