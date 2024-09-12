@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/ubuntu/Dev/CI_Template/build",
+  "command": "/usr/bin/g++ -DLINUX -I/home/ubuntu/Dev/CI_Template/lib/temp_lib/temp -I/home/ubuntu/Dev/CI_Template/lib/temp_lib/include -g -std=gnu++17 -o lib/temp_lib/CMakeFiles/temp.dir/src/lib_temp.cpp.o -c /home/ubuntu/Dev/CI_Template/lib/temp_lib/src/lib_temp.cpp",
+  "file": "/home/ubuntu/Dev/CI_Template/lib/temp_lib/src/lib_temp.cpp",
+  "output": "lib/temp_lib/CMakeFiles/temp.dir/src/lib_temp.cpp.o"
+},
+{
+  "directory": "/home/ubuntu/Dev/CI_Template/build",
+  "command": "/usr/bin/g++ -DLINUX -I/home/ubuntu/Dev/CI_Template/app/temp_exe -I/home/ubuntu/Dev/CI_Template/app/include -I/home/ubuntu/Dev/CI_Template/app/src -I/home/ubuntu/Dev/CI_Template/build/app -I/home/ubuntu/Dev/CI_Template/lib/temp_lib/include -g -std=gnu++20 -o app/CMakeFiles/temp_exe.dir/src/temp.cpp.o -c /home/ubuntu/Dev/CI_Template/app/src/temp.cpp",
+  "file": "/home/ubuntu/Dev/CI_Template/app/src/temp.cpp",
+  "output": "app/CMakeFiles/temp_exe.dir/src/temp.cpp.o"
+},
+{
+  "directory": "/home/ubuntu/Dev/CI_Template/build",
+  "command": "/usr/bin/g++ -DLINUX -I/home/ubuntu/Dev/CI_Template/app/temp_exe -I/home/ubuntu/Dev/CI_Template/app/include -I/home/ubuntu/Dev/CI_Template/app/src -I/home/ubuntu/Dev/CI_Template/build/app -I/home/ubuntu/Dev/CI_Template/lib/temp_lib/include -g -std=gnu++20 -o app/CMakeFiles/temp_exe.dir/src/main.cpp.o -c /home/ubuntu/Dev/CI_Template/app/src/main.cpp",
+  "file": "/home/ubuntu/Dev/CI_Template/app/src/main.cpp",
+  "output": "app/CMakeFiles/temp_exe.dir/src/main.cpp.o"
+}
+]
