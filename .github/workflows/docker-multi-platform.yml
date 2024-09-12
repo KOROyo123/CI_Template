@@ -70,7 +70,8 @@ jobs:
 
       - name: Copy artifacts from container
         run: |
-          docker cp build-container-${{ matrix.version }}:/workspace/bin ./output  
+          docker cp build-container-${{ matrix.version }}:/workspace/bin ./output
+          docker stop build-container-${{ matrix.version }}   # 删除容器  
           docker rm build-container-${{ matrix.version }}   # 删除容器
 
       - name: Upload artifacts
