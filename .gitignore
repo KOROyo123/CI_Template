@@ -1,1 +1,8 @@
 # C++ objects and libs
+.vscode
+.cache
+*.user
+build
+bin
+.vs
+rely
