@@ -62,20 +62,21 @@ jobs:
           
       - name: Run build script inside container
         run: |
-          docker cp . $CONTAINER_ID:/app  # 将源代码拷贝到容器中
-          docker run $CONTAINER_ID exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
-          docker exec $CONTAINER_ID /app/ci/build_in_docker.sh
+          docker cp . build-container-${{ matrix.version }}:/
+
+          # docker run $CONTAINER_ID exec build-container-${{ matrix.version }} chmod +x /app/ci/build_in_docker.sh
+          # docker exec $CONTAINER_ID /app/ci/build_in_docker.sh
         
 
-      - name: Copy artifacts from container
-        run: |
-          docker cp build-container-${{ matrix.version }}:/app/bin ./output  
-          docker rm build-container-${{ matrix.version }}   # 删除容器
+      # - name: Copy artifacts from container
+      #   run: |
+      #     docker cp build-container-${{ matrix.version }}:/app/bin ./output  
+      #     docker rm build-container-${{ matrix.version }}   # 删除容器
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts-${{ matrix.platform }}
-          path: ./output
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: build-artifacts-${{ matrix.platform }}
+      #     path: ./output
 
 
